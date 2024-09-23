@@ -1,8 +1,11 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
+# 
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmLib", "AlgorithmLib\AlgorithmLib.csproj", "{CD9CBA19-2DB3-44A2-B5BF-BB7BBAD3F99B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AlgorithmLibTest", "AlgorithmLibTest\AlgorithmLibTest.csproj", "{BF3280B9-8231-42EE-A924-D918DC936A11}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{11BF4EF6-17E6-4373-9029-C155B76BD568}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -18,6 +21,10 @@ Global
 		{BF3280B9-8231-42EE-A924-D918DC936A11}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{BF3280B9-8231-42EE-A924-D918DC936A11}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{BF3280B9-8231-42EE-A924-D918DC936A11}.Release|Any CPU.Build.0 = Release|Any CPU
+		{11BF4EF6-17E6-4373-9029-C155B76BD568}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{11BF4EF6-17E6-4373-9029-C155B76BD568}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{11BF4EF6-17E6-4373-9029-C155B76BD568}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{11BF4EF6-17E6-4373-9029-C155B76BD568}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 	EndGlobalSection

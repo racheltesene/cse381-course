@@ -1,0 +1,12 @@
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.GeneratedMSBuildEditorConfig.editorconfig
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.AssemblyInfoInputs.cache
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.AssemblyInfo.cs
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.csproj.CoreCompileInputs.cache
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.sourcelink.json
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\bin\Debug\net8.0\AlgorithmLib.deps.json
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\bin\Debug\net8.0\AlgorithmLib.dll
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\bin\Debug\net8.0\AlgorithmLib.pdb
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.dll
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\refint\AlgorithmLib.dll
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.pdb
+C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\ref\AlgorithmLib.dll
