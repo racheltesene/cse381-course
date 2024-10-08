@@ -5,54 +5,100 @@
  *  Instructions: Implement the Partition and _Sort functions per the instructions
  *  in the comments.  Run all tests in QuickSortTest.cs to verify your code.
  */
-namespace AlgorithmLib;
-
-public static class QuickSort
+namespace AlgorithmLib
 {
+    public static class QuickSort
+    {
+        /* Sort the entire list using QuickSort
+         *
+         *  Inputs:
+         *     data - list of values to be sorted
+         *  Outputs:
+         *     none (the list is sorted in place)
+         */
+        public static void Sort<T>(List<T> data) where T : IComparable<T>
+        {
+            // Start the recursion with the entire list: indices 0 to data.Count - 1
+            _Sort(data, 0, data.Count - 1);
+        }
 
+        /* Recursively sort a sublist defined by first and last
+         *  Inputs:
+         *     data - list of values to be sorted
+         *     first - the index of the first element in the sublist
+         *     last - the index of the last element in the sublist
+         *  Outputs:
+         *     none (the sublist is sorted in place)
+         */
+        public static void _Sort<T>(List<T> data, int first, int last) where T : IComparable<T>
+        {
+            // Base case: if the list has one or no elements, it is already sorted
+            if (first < last)
+            {
+                // Partition the list and get the pivot's final position
+                int pivotIndex = Partition(data, first, last);
 
-    /* Use Quick Sort to sort a list of values in place
-     *
-     *  Inputs:
-     *     data - list of values
-     *  Outputs:
-     *     none
-     */
-    public static void Sort<T>(List<T> data) where T : IComparable<T>
-    {
-        // Start the recursion with the entire list
-        _Sort(data, 0, data.Count-1);
-    }
-    
-    /* Recursively use quick sort to sort a sublist
-     * defined by first and last.
-     *
-     *  Inputs:
-     *     data - list of values
-     *     first - the start of the sublist
-     *     last - the end of the sublist
-     *  Outputs:
-     *     None
-     */
-    public static void _Sort<T>(List<T> data, int first, int last) where T : IComparable<T>
-    {
-    }
-    
-    /* Partition a sublist by finding where a pivot belongs when sorted.  All
-     * values less or equal to the pivot must be on the left hand side and
-     * all values greater must be on the right hand size of the pivot.
-     * In this implementation, do not select a random pivot.  Select the
-     * last value in the sublist to always be your pivot.
-     *
-     *  Inputs:
-     *     data - list of values
-     *     first - the start of the sublist
-     *     last - the end of the sublist
-     *  Outputs:
-     *     The index of where the pivot was moved
-     */
-    public static int Partition<T>(List<T> data, int first, int last) where T : IComparable<T>
-    {
-        return 0;
+                // Recursively sort the left side of the pivot (from first to pivotIndex - 1)
+                _Sort(data, first, pivotIndex - 1);
+
+                // Recursively sort the right side of the pivot (from pivotIndex + 1 to last)
+                _Sort(data, pivotIndex + 1, last);
+            }
+        }
+
+        /* Partition the sublist around a pivot
+         *  Inputs:
+         *     data - list of values
+         *     first - the start of the sublist
+         *     last - the end of the sublist (pivot element)
+         *  Outputs:
+         *     The index where the pivot is finally placed
+         *
+         *  Algorithm:
+         *     1. Select the last element as the pivot.
+         *     2. Reorder the sublist such that all elements smaller than or equal to the pivot
+         *        are on the left side, and all elements greater than the pivot are on the right.
+         *     3. Swap the pivot into its correct position.
+         */
+        public static int Partition<T>(List<T> data, int first, int last) where T : IComparable<T>
+        {
+            // The pivot is always the last element of the sublist
+            T pivot = data[last];
+
+            // Index of the smaller element; starts before the first element
+            int i = first - 1;
+
+            // Loop through the sublist (excluding the pivot) to rearrange elements
+            for (int j = first; j < last; j++)
+            {
+                // If the current element is less than or equal to the pivot, move it to the left
+                if (data[j].CompareTo(pivot) <= 0)
+                {
+                    i++; // Increment the smaller element index
+                    Swap(data, i, j); // Swap the current element with the one at i
+                }
+            }
+
+            // After rearranging, place the pivot in its correct position (i + 1)
+            Swap(data, i + 1, last);
+
+            // Return the index of the pivot
+            return i + 1;
+        }
+
+        /* Swap two elements in the list
+         *  Inputs:
+         *     data - list of values
+         *     i - the index of the first element to swap
+         *     j - the index of the second element to swap
+         *  Outputs:
+         *     none (the elements are swapped in place)
+         */
+        private static void Swap<T>(List<T> data, int i, int j)
+        {
+            T temp = data[i];
+            data[i] = data[j];
+            data[j] = temp;
+        }
     }
 }
