@@ -6,63 +6,57 @@
 *  in the comments.  Run all tests in DAGShortestPathTest.cs to verify your code.
 */
 
+using System.Collections.Generic;
+using System.Linq;
+using System;
+
 namespace AlgorithmLib;
 
 public static class DAGShortestPath
 {
-    // Helper function for topological sorting using Depth First Search (DFS)
-    private static void TopoSortUtil(Graph g, int v, bool[] visited, Stack<int> stack)
-    {
-        // Mark the current node as visited
-        visited[v] = true;
-
-        // Recur for all the vertices adjacent to this vertex
-        foreach (var edge in g.GetEdges(v))  // Use the actual method that retrieves edges for vertex `v`
-        {
-            int neighbor = edge.Item1;  // Assuming GetEdges returns a list of tuples (neighbor, weight)
-            if (!visited[neighbor])
-            {
-                TopoSortUtil(g, neighbor, visited, stack);
-            }
-        }
-
-        // Push current vertex to stack which stores the result
-        stack.Push(v);
-    }
-
     /* Topologically sort all vertices in a graph and return the sorted
-     * list of vertex IDs.  Use a Stack object (available in C#).
+     * list of vertex ID's.  Use a Stack object (available in C#).
      *
      *  Inputs:
      *     g - Graph
      *  Outputs:
-     *     Return a sorted list of vertex IDs
+     *     Return a sorted list of vertex ID's
      */
     public static List<int> Sort(Graph g)
     {
-        int numVertices = g.VertexCount();  // Use the actual method for vertex count
-        Stack<int> stack = new Stack<int>();
+        int size = g.Size(); // Get the number of vertices in the graph
+        bool[] visited = new bool[size]; // Track visited vertices
+        Stack<int> stack = new Stack<int>(); // Stack to hold the topological order
 
-        // Mark all the vertices as not visited
-        bool[] visited = new bool[numVertices];
-
-        // Call the helper function to store Topological Sort
-        for (int i = 0; i < numVertices; i++)
+        // Visit each vertex
+        for (int i = 0; i < size; i++)
         {
             if (!visited[i])
             {
-                TopoSortUtil(g, i, visited, stack);
+                TopologicalSortUtil(g, i, visited, stack); // Call recursive helper
             }
         }
 
-        // Return the sorted list by popping all elements from the stack
-        List<int> sortedList = new List<int>();
-        while (stack.Count > 0)
+        // Return the vertices in topological order
+        return stack.ToList(); // Convert stack to a list for the result
+    }
+
+    // A utility function for performing the DFS and filling the stack
+    private static void TopologicalSortUtil(Graph g, int vertex, bool[] visited, Stack<int> stack)
+    {
+        visited[vertex] = true; // Mark the current node as visited
+
+        // Recur for all vertices connected to this vertex
+        foreach (var edge in g.Edges(vertex))
         {
-            sortedList.Add(stack.Pop());
+            if (!visited[edge.DestId]) // If not visited, recurse on it
+            {
+                TopologicalSortUtil(g, edge.DestId, visited, stack);
+            }
         }
 
-        return sortedList;
+        // Push current vertex to stack which stores the result
+        stack.Push(vertex);
     }
 
     /* Find the shortest path from a starting vertex to all
@@ -74,42 +68,39 @@ public static class DAGShortestPath
      *     g - Directed Acyclic Graph
      *     startVertex - Starting vertex ID
      *  Outputs:
-     *     (distance list, predecessor list)
+     *     (distance list, predecessor list) 
      *     NOTE: The above two output lists should contain Graph.INF as needed
      */
     public static (List<int>, List<int>) ShortestPath(Graph g, int startVertex)
     {
-        int numVertices = g.VertexCount();  // Use the actual method for vertex count
-        List<int> dist = Enumerable.Repeat(Graph.INF, numVertices).ToList();
-        List<int> pred = Enumerable.Repeat(Graph.INF, numVertices).ToList();
-
-        // Distance to the start vertex is 0
-        dist[startVertex] = 0;
+        int size = g.Size(); // Get the number of vertices in the graph
+        List<int> distances = Enumerable.Repeat(Graph.INF, size).ToList(); // Initialize distances to infinity
+        List<int> predecessors = Enumerable.Repeat(Graph.INF, size).ToList(); // Initialize predecessors to infinity
+        distances[startVertex] = 0; // Distance from start to itself is 0
 
         // Get the topologically sorted vertices
-        List<int> topoSorted = Sort(g);
+        List<int> sortedVertices = Sort(g);
 
-        // Process vertices in topological order
-        foreach (int u in topoSorted)
+        // Process each vertex in topological order
+        foreach (var vertex in sortedVertices)
         {
-            // If the distance to this vertex is not INF, process its neighbors
-            if (dist[u] != Graph.INF)
+            // If the current vertex is not reachable, skip it
+            if (distances[vertex] != Graph.INF)
             {
-                foreach (var edge in g.GetEdges(u))  // Use the actual method that retrieves edges for vertex `u`
+                // Explore each adjacent vertex
+                foreach (var edge in g.Edges(vertex))
                 {
-                    int v = edge.Item1;     // Assuming GetEdges returns a tuple (neighbor, weight)
-                    int weight = edge.Item2;
-
-                    // Relax the edge
-                    if (dist[u] + weight < dist[v])
+                    // Check if the current path is shorter
+                    if (distances[vertex] + edge.Weight < distances[edge.DestId])
                     {
-                        dist[v] = dist[u] + weight;
-                        pred[v] = u;
+                        distances[edge.DestId] = distances[vertex] + edge.Weight; // Update distance
+                        predecessors[edge.DestId] = vertex; // Update predecessor
                     }
                 }
             }
         }
 
-        return (dist, pred);
+        // Return the distances and predecessors
+        return (distances, predecessors);
     }
 }
