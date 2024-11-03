@@ -5,6 +5,7 @@
 *  Do not modify this file.  You will use this in your code.
 */
 
+
 namespace AlgorithmLib;
 
 public class Edge
@@ -13,6 +14,7 @@ public class Edge
     // and the weight of the edge (Weight).
     public int DestId { get; set; }
     public int Weight { get; set; }
+    public int Item2 { get; internal set; }
 }
 
 public class Graph
@@ -70,5 +72,10 @@ public class Graph
     public string GetLabel(int id)
     {
         return _labels[id];
+    }
+
+    internal IEnumerable<object> GetEdges(int u)
+    {
+        throw new NotImplementedException();
     }
 }
