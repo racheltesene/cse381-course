@@ -14,97 +14,140 @@ public static class HuffmanTree
     /* Represent the nodes in the Huffman Tree */
     public class Node
     {
-        // Letter represented by the node.  Can be blank.
-        public char Letter { get; set; }
-        
-        // Frequency of letters in the sub-tree beginning with this node
-        public int Count { get; set; }
-        
-        // Left and Right sub-trees (can be Null)
-        public Node? Left;
-        public Node? Right;
+        public char Letter { get; set; }  // Letter represented by the node. Can be blank.
+        public int Count { get; set; }   // Frequency of letters in the sub-tree.
+        public Node? Left;               // Left sub-tree (can be null).
+        public Node? Right;              // Right sub-tree (can be null).
     }
 
-    /* Create a profile showing the frequency of all letters
-     * from a string of text.
-     *
-     *  Inputs:
-     *     text - Source for the profile
-     *  Outputs:
-     *     Dictionary where key is a character and value is the frequency count
-     *     from the text.
-     */
-    public static Dictionary<char,int> Profile(String text)
+    /// <summary>
+    /// Create a frequency profile of all letters in the input text.
+    /// </summary>
+    /// <param name="text">Source text.</param>
+    /// <returns>Dictionary with character frequencies.</returns>
+    public static Dictionary<char, int> Profile(string text)
     {
-        return new Dictionary<char, int>();
+        var profile = new Dictionary<char, int>();
+        foreach (var ch in text)
+        {
+            if (!profile.ContainsKey(ch))
+                profile[ch] = 0;
+            profile[ch]++;
+        }
+        return profile;
     }
-    
-    /* Create a huffman tree for all letters in the profile.  Use
-     * a Priority Queue (code already provided) in your implementation.
-     *
-     *  Inputs:
-     *     profile - Previously generated profile dictionary
-     *  Outputs:
-     *     The root node of a huffman tree
-     */
+
+    /// <summary>
+    /// Build a Huffman Tree using a priority queue based on the profile.
+    /// </summary>
+    /// <param name="profile">Character frequency profile.</param>
+    /// <returns>Root node of the Huffman Tree.</returns>
     public static Node BuildTree(Dictionary<char, int> profile)
     {
-        return new Node();
+        var priorityQueue = new PriorityQueue<Node, int>();
+        
+        // Initialize the priority queue with leaf nodes.
+        foreach (var kvp in profile)
+        {
+            priorityQueue.Enqueue(new Node { Letter = kvp.Key, Count = kvp.Value }, kvp.Value);
+        }
+
+        // Construct the Huffman Tree.
+        while (priorityQueue.Count > 1)
+        {
+            var left = priorityQueue.Dequeue();
+            var right = priorityQueue.Dequeue();
+
+            var parent = new Node
+            {
+                Letter = '\0', // Internal nodes do not represent a specific letter.
+                Count = left.Count + right.Count,
+                Left = left,
+                Right = right
+            };
+
+            priorityQueue.Enqueue(parent, parent.Count);
+        }
+
+        return priorityQueue.Dequeue(); // The last remaining node is the root.
     }
 
-    /* Create an encoding map from the huffman tree
-     *
-     *  Inputs:
-     *     root - Root node of the Huffman Tree
-     *  Outputs:
-     *     A dictionary where key is the letter and value is the
-     *     huffman code.
-     */
+    /// <summary>
+    /// Create an encoding map from the Huffman Tree.
+    /// </summary>
+    /// <param name="root">Root of the Huffman Tree.</param>
+    /// <returns>Dictionary with character-to-code mappings.</returns>
     public static Dictionary<char, string> CreateEncodingMap(Node root)
     {
-        return new Dictionary<char, string>();
+        var encodingMap = new Dictionary<char, string>();
+        _CreateEncodingMap(root, "", encodingMap);
+        return encodingMap;
     }
-    
-    /* Recursively visit each node in the Huffman Tree
-     * looking for leaf nodes which contain letters.  Keep
-     * track of the huffman code by adding 0 when going left
-     * and 1 when going right
-     *
-     *  Inputs:
-     *     node - Current node we are on
-     *     code - Current code created
-     *     map - Encoding Map being populated
-     *  Outputs:
-     *     none
-     */
+
+    /// <summary>
+    /// Recursive helper to populate the encoding map.
+    /// </summary>
+    /// <param name="node">Current node in the tree.</param>
+    /// <param name="code">Current Huffman code.</param>
+    /// <param name="map">Encoding map being populated.</param>
     public static void _CreateEncodingMap(Node node, string code, Dictionary<char, string> map)
     {
+        if (node.Left == null && node.Right == null)
+        {
+            // Leaf node: map the letter to its Huffman code.
+            map[node.Letter] = code;
+            return;
+        }
+
+        // Traverse left and append '0' to the code.
+        if (node.Left != null)
+            _CreateEncodingMap(node.Left, code + "0", map);
+
+        // Traverse right and append '1' to the code.
+        if (node.Right != null)
+            _CreateEncodingMap(node.Right, code + "1", map);
     }
 
-    /* Encode a string with the encoding map.
-     *
-     *  Inputs:
-     *     text - String to encode
-     *     map - Encoding Map previously created
-     *  Outputs:
-     *     A string of huffman codes (1's and 0's) representing the
-     *     encoding of the text.
-     */
+    /// <summary>
+    /// Encode a string using the encoding map.
+    /// </summary>
+    /// <param name="text">Text to encode.</param>
+    /// <param name="map">Encoding map.</param>
+    /// <returns>Encoded string of 0s and 1s.</returns>
     public static string Encode(string text, Dictionary<char, string> map)
     {
-        return "";
+        var encodedText = new StringBuilder();
+        foreach (var ch in text)
+        {
+            encodedText.Append(map[ch]);
+        }
+        return encodedText.ToString();
     }
 
-    /* Decode a string with the huffman tree
-     *
-     *  Inputs:
-     *     text - String to decode
-     *     root - Root node of the previously created huffman tree
-     *  Outputs:
-     *     decoded text
-     */
+    /// <summary>
+    /// Decode an encoded string using the Huffman Tree.
+    /// </summary>
+    /// <param name="text">Encoded string.</param>
+    /// <param name="tree">Root node of the Huffman Tree.</param>
+    /// <returns>Decoded text.</returns>
     public static string Decode(string text, Node tree)
     {
-        return "";
+        var decodedText = new StringBuilder();
+        var currentNode = tree;
+
+        foreach (var bit in text)
+        {
+            // Traverse left for '0', right for '1'.
+            currentNode = bit == '0' ? currentNode.Left : currentNode.Right;
+
+            // If we reach a leaf node, append the letter and reset to the root.
+            if (currentNode.Left == null && currentNode.Right == null)
+            {
+                decodedText.Append(currentNode.Letter);
+                currentNode = tree;
+            }
+        }
+
+        return decodedText.ToString();
     }
 }
