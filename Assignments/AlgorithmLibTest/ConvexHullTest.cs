@@ -1,19 +1,16 @@
-﻿/*  CSE 381 - Convex Hull (Graham Scan) Test
+﻿﻿/*  CSE 381 - Convex Hull (Graham Scan) Test
  *  (c) BYU-Idaho - It is an honor code violation to post this
  *  file completed in a public file sharing site. F4.
  *
  *  Instructions: Do not modify this file.  Use these test to verify
  *  that your code is working properly.
 */
-
 namespace AlgorithmLibTest;
 using AlgorithmLib;
 using NUnit.Framework;
-
 [TestFixture]
 public class ConvexHullTest
 {
-
     [Test]
     public void Test1_ConvexOrientation()
     {
@@ -52,7 +49,6 @@ public class ConvexHullTest
         var result = ConvexHull.GetAngle(anchor, p);
         Assert.That(result, Is.EqualTo(1.030).Within(0.001));
     }
-
     [Test]
     public void Test5_GetDistance()
     {
@@ -73,7 +69,6 @@ public class ConvexHullTest
         var hull = ConvexHull.GenerateHull(points);
         
         Assert.That(hull.Count, Is.EqualTo(0));
-
         Assert.Pass();
     }
     
@@ -107,12 +102,10 @@ public class ConvexHullTest
         };
         
         Assert.That(hull.Count, Is.EqualTo(expected.Count));
-
         for (var i = 0; i < hull.Count; i++)
         {
             Assert.That(hull[i].Equals(expected[i]), Is.True);
         }
-
         Assert.Pass();
     }
     
@@ -130,10 +123,8 @@ public class ConvexHullTest
         var hull = ConvexHull.GenerateHull(points);
         
         Assert.That(hull.Count, Is.EqualTo(0));
-
         Assert.Pass();
     }
-
     [Test]
     public void Test9_AlmostCoLinear()
     {
@@ -157,15 +148,12 @@ public class ConvexHullTest
         };
         
         Assert.That(hull.Count, Is.EqualTo(expected.Count));
-
         for (var i = 0; i < hull.Count; i++)
         {
             Assert.That(hull[i].Equals(expected[i]), Is.True);
         }
-
         Assert.Pass();
     }
-
     [Test]
     public void Test10_TooSmallToCreateHull()
     {
@@ -177,7 +165,6 @@ public class ConvexHullTest
         var hull = ConvexHull.GenerateHull(points);
         
         Assert.That(hull.Count, Is.EqualTo(0));
-
         Assert.Pass();
     } 
     

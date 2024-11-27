@@ -6,127 +6,86 @@
 *  GenerateHull functions per the instructions in the comments.  
 *  Run all tests in ConvexHullTest.cs to verify your code.
 */
-
-using System;
-using System.Collections.Generic;
-using System.Linq;
-
 namespace AlgorithmLib;
-
 public static class ConvexHull
 {
+    /* Valid angle types to be used in the code */
+    public enum Angle
+    {
+        Convex,
+        Concave,
+        Colinear
+    }
+    
+    /* Representation of a 2D point with support
+     * for comparing 2 points for equivalence.
+    */
     public class Point
     {
-        public int X { get; set; }
-        public int Y { get; set; }
-
-        // Constructor to allow initialization with (x, y)
-        public Point(int x, int y)
+        public readonly double X;
+        public readonly double Y;
+        public Point(double x, double y)
         {
             X = x;
             Y = y;
         }
-
-        public override bool Equals(object? obj)
+        /* This function supports testing */
+        public bool Equals(Point point)
         {
-            if (obj is not Point other)
-                return false;
-
-            return X == other.X && Y == other.Y;
-        }
-
-        public override int GetHashCode()
-        {
-            return HashCode.Combine(X, Y);
+            return Math.Abs(X - point.X) < 0.001 && 
+                   Math.Abs(Y - point.Y) < 0.001;
         }
     }
-
-    public enum Angle
-    {
-        Colinear,
-        Convex,
-        Concave
-    }
-
-    public static List<Point> GenerateHull(List<Point> points)
-    {
-        if (points.Count < 3)
-            return new List<Point>();
-
-        // Step 1: Find the anchor point (lowest Y, then leftmost X)
-        Point anchor = points.OrderBy(p => p.Y).ThenBy(p => p.X).First();
-
-        // Step 2: Sort points by polar angle and distance from anchor
-        var sortedPoints = points
-            .OrderBy(p => GetAngle(anchor, p))
-            .ThenBy(p => GetDist(anchor, p))
-            .ToList();
-
-        // Step 3: Process points to generate the convex hull using a stack
-        Stack<Point> hull = new();
-        hull.Push(sortedPoints[0]);
-        hull.Push(sortedPoints[1]);
-
-        for (int i = 2; i < sortedPoints.Count; i++)
-        {
-            Point top = hull.Pop();
-            while (hull.Count > 0 &&
-                   Orientation(hull.Peek(), top, sortedPoints[i]) != Angle.Convex)
-            {
-                top = hull.Pop();
-            }
-            hull.Push(top);
-            hull.Push(sortedPoints[i]);
-        }
-
-        // Step 4: Filter out unnecessary collinear points
-        var finalHull = hull.ToList();
-        return RemoveInteriorCollinearPoints(finalHull);
-    }
-
-    private static List<Point> RemoveInteriorCollinearPoints(List<Point> hull)
-    {
-        var filteredHull = new List<Point>();
-
-        for (int i = 0; i < hull.Count; i++)
-        {
-            Point prev = hull[(i - 1 + hull.Count) % hull.Count];
-            Point curr = hull[i];
-            Point next = hull[(i + 1) % hull.Count];
-
-            // Check if current point is collinear with its neighbors
-            if (Orientation(prev, curr, next) != Angle.Colinear)
-            {
-                filteredHull.Add(curr);
-            }
-            else
-            {
-                // Include the farthest point only
-                if (GetDist(prev, curr) > GetDist(prev, next))
-                    filteredHull.Add(curr);
-            }
-        }
-
-        return filteredHull;
-    }
-
-    private static double GetAngle(Point a, Point b)
-    {
-        return Math.Atan2(b.Y - a.Y, b.X - a.X);
-    }
-
-    private static double GetDist(Point a, Point b)
-    {
-        return Math.Sqrt(Math.Pow(b.X - a.X, 2) + Math.Pow(b.Y - a.Y, 2));
-    }
-
-    // Changed to public for accessibility in tests
+    /* Determine if 3 points form a convex, concave, or
+     * co-linear angle.
+     *
+     *  Inputs:
+     *     a - Point 1
+     *     b - Point 2
+     *     c - Point 3
+     *  Outputs:
+     *     Return Angle.Convex, Angle.Concave, or Angle.Colinear
+     */
     public static Angle Orientation(Point a, Point b, Point c)
     {
-        // Calculate the cross product
-        int crossProduct = (b.X - a.X) * (c.Y - a.Y) - (b.Y - a.Y) * (c.X - a.X);
-
-        if (Math.Abs(crossProduct) < 0.001) return Angle.Colinear;
-        return crossProduct > 0 ? Angle.Convex : Angle.Concave;
+        return Angle.Convex; 
+    }
+    /* Determine the angle of a point relative to an anchor point.
+     *
+     *  Inputs:
+     *     anchor - Anchor point
+     *     point - Other point
+     *  Outputs:
+     *     Return angle in radians
+     */
+    public static double GetAngle(Point anchor, Point point)
+    {
+        return 0.0;
+    }
+    /* Determine the distance from an anchor point to another point
+     *
+     *  Inputs:
+     *     anchor - Anchor point
+     *     point - Other point
+     *  Outputs:
+     *     Return distance
+     */
+    public static double GetDist(Point anchor, Point point)
+    {
+        return 0.0;
+    }
+    /* General a Convex Hull from a list of points.
+     *
+     *  Inputs:
+     *     points - List of points to create hull around
+     *  Outputs:
+     *     Return list of points in the hull
+     *
+     * NOTE: If no hull exists, then return an empty list.
+     */
+    public static List<Point> GenerateHull(List<Point> points)
+    {
+        
+        return new List<Point>();
     }
 }
