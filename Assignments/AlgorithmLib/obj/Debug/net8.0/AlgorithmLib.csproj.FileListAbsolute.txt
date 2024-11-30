@@ -10,3 +10,15 @@ C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\A
 C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\refint\AlgorithmLib.dll
 C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.pdb
 C:\Users\rache\Desktop\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\ref\AlgorithmLib.dll
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\bin\Debug\net8.0\AlgorithmLib.deps.json
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\bin\Debug\net8.0\AlgorithmLib.dll
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\bin\Debug\net8.0\AlgorithmLib.pdb
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.GeneratedMSBuildEditorConfig.editorconfig
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.AssemblyInfoInputs.cache
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.AssemblyInfo.cs
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.csproj.CoreCompileInputs.cache
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.sourcelink.json
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.dll
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\refint\AlgorithmLib.dll
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\AlgorithmLib.pdb
+c:\Users\rache\OneDrive - BYU-Idaho\cse381-course\Assignments\AlgorithmLib\obj\Debug\net8.0\ref\AlgorithmLib.dll
