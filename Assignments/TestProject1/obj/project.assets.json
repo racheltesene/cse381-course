@@ -987,11 +987,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\rache\\Desktop\\cse381-course\\Assignments\\TestProject1\\TestProject1.csproj",
+      "projectUniqueName": "C:\\Users\\rache\\OneDrive - BYU-Idaho\\cse381-course\\Assignments\\TestProject1\\TestProject1.csproj",
       "projectName": "TestProject1",
-      "projectPath": "C:\\Users\\rache\\Desktop\\cse381-course\\Assignments\\TestProject1\\TestProject1.csproj",
+      "projectPath": "C:\\Users\\rache\\OneDrive - BYU-Idaho\\cse381-course\\Assignments\\TestProject1\\TestProject1.csproj",
       "packagesPath": "C:\\Users\\rache\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\rache\\Desktop\\cse381-course\\Assignments\\TestProject1\\obj\\",
+      "outputPath": "C:\\Users\\rache\\OneDrive - BYU-Idaho\\cse381-course\\Assignments\\TestProject1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\rache\\AppData\\Roaming\\NuGet\\NuGet.Config"
@@ -1016,8 +1016,9 @@
       "restoreAuditProperties": {
         "enableAudit": "true",
         "auditLevel": "low",
-        "auditMode": "direct"
-      }
+        "auditMode": "all"
+      },
+      "SdkAnalysisLevel": "9.0.100"
     },
     "frameworks": {
       "net8.0": {
@@ -1060,7 +1061,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.401/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.100/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
